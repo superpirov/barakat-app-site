@@ -1,1 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Баракат — трекер с баракатом в каждом дне</title>
+<meta name="description" content="Баракат — современный трекер задач, намазов, чтения Корана и фокуса. Скачайте APK для Android или установите PWA на iPhone за 10 секунд. Данные хранятся только у вас в устройстве.">
+<meta name="theme-color" content="#F2F4EF">
+<meta property="og:title" content="Баракат — трекер с баракатом">
+<meta property="og:description" content="Задачи, намазы, Кибла, Коран, фокус, благодарность и закят — всё в одном приложении.">
+<meta property="og:image" content="icon.png">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Golos+Text:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4EF; --panel:#FFFFFF; --panel2:#F5F7F2; --ink:#1B211D; --muted:#69736C; --line:#E2E6DD;
+  --accent:#2E7D5B; --accent2:#E8A23B; --accent-ink:#fff; --shadow:0 14px 36px rgba(27,33,29,.09);
+  --r-lg:24px; --r-md:16px; --r-sm:12px; --fd:'Unbounded',sans-serif; --fb:'Golos Text',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;
+  background-image:radial-gradient(rgba(27,33,29,.07) 1px,transparent 1px);background-size:22px 22px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(700px 500px at 4% -4%,rgba(46,125,91,.11),transparent 65%),
+             radial-gradient(700px 500px at 110% 10%,rgba(232,162,59,.10),transparent 65%)}
+a{color:inherit}
+img{max-width:100%;display:block}
 
+/* nav */
+.nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  background:color-mix(in srgb,var(--panel) 84%,transparent);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:var(--accent);display:grid;place-items:center;color:#fff;font-family:var(--fd);font-weight:800;font-size:18px;box-shadow:0 6px 16px rgba(46,125,91,.25)}
+.logo-star{color:var(--accent);font-size:18px}
+.logo-text b{font-family:var(--fd);font-weight:800;font-size:15px;letter-spacing:.3px;display:block;line-height:1}
+.logo-text span{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.nav-links{margin-left:auto;display:flex;gap:22px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;transition:.15s}
+.nav-links a:hover{color:var(--ink)}
+.btn-primary{appearance:none;border:0;background:var(--accent);color:var(--accent-ink);font:700 13.5px var(--fb);
+  padding:11px 18px;border-radius:999px;cursor:pointer;box-shadow:0 8px 18px rgba(46,125,91,.28);transition:.18s;display:inline-flex;align-items:center;gap:8px;text-decoration:none;justify-content:center}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(46,125,91,.34)}
+.btn-primary:active{transform:scale(.97)}
+.btn-ghost{appearance:none;background:var(--panel);border:1.5px solid var(--line);color:var(--ink);font:700 13.5px var(--fb);
+  padding:11px 18px;border-radius:999px;cursor:pointer;transition:.18s;display:inline-flex;gap:8px;align-items:center;text-decoration:none}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);place-items:center;cursor:pointer}
+
+/* hero */
+.hero{max-width:1120px;margin:0 auto;padding:36px 20px 32px;display:grid;grid-template-columns:1.08fr .92fr;gap:36px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 18%,transparent);padding:7px 12px;border-radius:999px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 6px rgba(46,125,91,.15)}
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-.02em;margin:16px 0 14px}
+h1 em{font-style:normal;color:var(--accent);position:relative}
+h1 em::after{content:'';position:absolute;left:0;right:0;bottom:4px;height:8px;background:color-mix(in srgb,var(--accent) 16%,transparent);z-index:-1;border-radius:4px}
+.hero-p{color:var(--muted);font-size:16px;max-width:560px;line-height:1.7}
+.hero-p b{color:var(--ink)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.hero-stats{display:flex;gap:18px;margin-top:26px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}
+.hero-stats div b{font-family:var(--fd);font-size:20px;display:block;line-height:1}
+.hero-stats div span{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.3px}
+.hero-trust{display:flex;align-items:center;gap:10px;margin-top:18px;font-size:12.5px;color:var(--muted);font-weight:600}
+.hero-trust img{width:22px;height:22px;border-radius:50%;border:2px solid var(--panel);margin-left:-8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.hero-trust img:first-of-type{margin-left:0}
+
+/* phone mock */
+.phone-wrap{position:relative;display:grid;place-items:center;padding:12px}
+.phone{position:relative;width:min(320px,100%);height:620px;background:var(--ink);border-radius:44px;padding:10px;box-shadow:0 28px 60px rgba(27,33,29,.28),0 8px 20px rgba(27,33,29,.12);border:4px solid #0E1410}
+.phone::before{content:'';position:absolute;left:50%;top:8px;transform:translateX(-50%);width:92px;height:18px;background:#0E1410;border-radius:0 0 14px 14px;z-index:3}
+.phone-screen{height:100%;background:var(--bg);border-radius:34px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.phone-top{padding:28px 18px 14px;background:linear-gradient(135deg,#1E6F52,#2E9E71);color:#fff;position:relative;overflow:hidden}
+.phone-top::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08)}
+.ph-row{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.ph-label{font-size:9px;letter-spacing:1.6px;text-transform:uppercase;opacity:.9;font-weight:700}
+.ph-time{font-family:var(--fd);font-weight:800;font-size:17px;margin-top:6px;display:flex;gap:8px;align-items:center}
+.ph-badge{font-size:11px;background:rgba(255,255,255,.18);padding:5px 10px;border-radius:999px;font-weight:700}
+.phone-body{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.mini-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.mini-icon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:16px;flex:none}
+.task-row{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.task-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;color:#fff;font-size:11px}
+.task-check.done{background:var(--accent)}
+.float-card{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;animation:float 4s ease-in-out infinite}
+.float-card b{font-family:var(--fd);font-size:13px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.float-a{left:-18px;top:64px;animation-delay:0s}
+.float-b{right:-14px;bottom:92px;animation-delay:1.2s}
+.float-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:16px}
+
+/* ornamental bg pattern section */
+.section{max-width:1120px;margin:0 auto;padding:50px 20px}
+.section-head{text-align:center;max-width:640px;margin:0 auto 34px}
+.kicker{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:var(--accent);font-weight:800}
+.section-head h2{font-family:var(--fd);font-weight:800;font-size:clamp(26px,4vw,36px);line-height:1.15;margin:10px 0 12px}
+.section-head p{color:var(--muted);font-size:15px}
+
+/* download */
+.download-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dl-card{background:var(--panel);border:1.5px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.dl-card.featured{border-color:color-mix(in srgb,var(--accent) 30%,var(--line));box-shadow:0 16px 40px rgba(46,125,91,.14)}
+.dl-card.featured::before{content:'';position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.dl-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.dl-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none}
+.dl-icon.android{background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 20%,transparent)}
+.dl-icon.apple{background:#0E1410;color:#fff}
+.dl-top h3{font-family:var(--fd);font-weight:700;font-size:18px;line-height:1.2}
+.dl-top p{font-size:12.5px;color:var(--muted);font-weight:600}
+.qr-wrap{display:grid;place-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:16px;margin:8px 0 14px;position:relative}
+.qr-frame{background:#fff;border-radius:14px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);border:1px solid #EDEEEA}
+#qrcode{display:grid;place-items:center}
+#qrcode img,#qrcode canvas{border-radius:8px}
+.qr-caption{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:10px;text-align:center}
+.dl-actions{display:flex;flex-direction:column;gap:10px;margin-top:auto}
+.meta{font-size:12px;color:var(--muted);text-align:center;font-weight:500}
+.meta a{color:var(--accent);font-weight:700;text-decoration:none}
+.steps{list-style:none;display:flex;flex-direction:column;gap:12px;margin:10px 0 16px}
+.step{display:flex;gap:12px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.step n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;font-family:var(--fd)}
+.step p{font-size:13.5px;font-weight:600;line-height:1.4}
+.step p span{color:var(--muted);font-weight:500;display:block;font-size:12.5px;margin-top:2px}
+.step-icon{font-size:18px}
+
+/* features */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,.04);transition:.2s;position:relative;overflow:hidden}
+.feat::before{content:'';position:absolute;top:-40px;right:-40px;width:110px;height:110px;border-radius:50%;background:color-mix(in srgb,var(--c) 10%,transparent);transition:.3s}
+.feat:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 35%,var(--line));box-shadow:0 12px 28px rgba(0,0,0,.07)}
+.feat:hover::before{transform:scale(1.25)}
+.feat-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--c) 15%,transparent);margin-bottom:12px;position:relative}
+.feat h3{font-family:var(--fd);font-weight:700;font-size:15px;margin-bottom:6px;position:relative}
+.feat p{font-size:13.5px;color:var(--muted);line-height:1.6;position:relative}
+.feat ul{margin-top:10px;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.feat ul li{font-size:11px;font-weight:700;padding:5px 9px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted)}
+
+/* islamic ornament divider */
+.ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 18px;color:var(--accent);opacity:.9}
+.ornament i{width:44px;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);display:block}
+.ornament span{font-size:18px;letter-spacing:6px}
+
+/* ayah */
+.ayah{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}
+.ayah::before{content:'﷽';position:absolute;top:14px;left:50%;transform:translateX(-50%);font-family:'Amiri',serif;font-size:22px;color:color-mix(in srgb,var(--accent) 55%,transparent);letter-spacing:2px}
+.ayah-ar{font-family:'Amiri',serif;font-size:30px;line-height:2;color:var(--accent);margin:18px 0 12px;direction:rtl}
+.ayah-tr{font-size:15px;color:var(--ink);max-width:700px;margin:0 auto;line-height:1.7}
+.ayah-ref{margin-top:14px;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px}
+.ayah-ref::before,.ayah-ref::after{content:'';width:28px;height:1px;background:var(--line)}
+
+/* faq / install help */
+.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.help-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}
+.help-card h3{font-family:var(--fd);font-weight:700;font-size:16px;margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.help-card ol{padding-left:18px;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:13.5px;font-weight:500}
+.help-card ol b{color:var(--ink)}
+.help-card p{font-size:13.5px;color:var(--muted)}
+
+/* footer */
+footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(10px)}
+.footer-inner{max-width:1120px;margin:0 auto;padding:28px 20px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--accent)}
+.copy{font-size:12.5px;color:var(--muted);font-weight:500}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:.6s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* responsive */
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr;gap:28px}
+  .phone-wrap{order:-1}
+  .phone{height:560px;width:300px}
+  .float-a{left:6px;top:8px}
+  .float-b{right:6px;bottom:18px}
+  .download-grid,.features-grid,.help-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links a.hide-m{display:none}
+}
+@media(max-width:640px){
+  .nav-inner{padding:10px 14px}
+  .nav-links{gap:10px}
+  .burger{display:grid}
+  .nav-links a{font-size:13px}
+  .hero{padding:22px 14px 18px}
+  .section{padding:34px 14px}
+  .features-grid{grid-template-columns:1fr}
+  .hero-actions .btn-primary,.hero-actions .btn-ghost{flex:1}
+  .phone{width:280px;height:540px}
+  .ayah-ar{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">✦</div>
+      <div class="logo-text"><b>Баракат</b><span>трекер задач</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#download" class="hide-m">Скачать</a>
+      <a href="#features" class="hide-m">Возможности</a>
+      <a href="#install" class="hide-m">Установка</a>
+      <a class="btn-primary" href="#download">Скачать бесплатно</a>
+      <button class="burger" id="burger" aria-label="меню">☰</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="eyebrow"><i></i> Ультрасовременный • для мусульман</div>
+    <h1>Планируй день<br><em>с баракатом</em></h1>
+    <p class="hero-p">Трекер задач, намазов, чтения Корана, фокус-таймер, закят и благодарность — всё в одном. <b>Данные хранятся только на твоём устройстве.</b> Без регистрации, без рекламы.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">⬇ Скачать на Android</a>
+      <a href="#download" class="btn-ghost"> iPhone — за 10 сек</a>
+    </div>
+    <div class="hero-stats">
+      <div><b>8 в 1</b><span>приложений</span></div>
+      <div><b>100%</b><span>оффлайн</span></div>
+      <div><b>3.9 МБ</b><span>вес APK</span></div>
+    </div>
+    <div class="hero-trust">
+      <span style="display:flex;align-items:center">
+        <img src="icon.png" alt="" style="width:28px;height:28px;border-radius:9px;margin:0;object-fit:cover;border:0">
+      </span>
+      <span>Уже используют братья и сёстры • Открытый код</span>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="phone-top">
+          <div class="ph-row"><span class="ph-label">🕌 Cледующий намаз — Аср</span><span class="ph-badge">02:14:33</span></div>
+          <div class="ph-time">15:42 <span style="opacity:.8;font-weight:600;font-size:12px">через 2ч 11м • Кибла 124°</span></div>
+          <div style="display:flex;gap:6px;margin-top:12px;overflow:hidden">
+            <span style="flex:1;text-align:center;background:rgba(255,255,255,.18);border-radius:10px;padding:6px 2px;font-size:11px;font-weight:700">Фаджр 05:12</span>
+            <span style="flex:1;text-align:center;background:rgba(255,255,255,.30);border-radius:10px;padding:6px 2px;font-size:11px;font-weight:700">Аср 15:42</span>
+            <span style="flex:1;text-align:center;background:rgba(255,255,255,.18);border-radius:10px;padding:6px 2px;font-size:11px;font-weight:700">Магриб 19:05</span>
+          </div>
+        </div>
+        <div class="phone-body">
+          <div class="mini-card">
+            <div class="mini-icon" style="background:rgba(46,125,91,.12)">🔥</div>
+            <div><b style="font-family:var(--fd);font-size:13px">Серия намазов: 7 дней</b><div style="font-size:11px;color:var(--muted);font-weight:600">Альхамдулиллях • не прерывай</div></div>
+            <div style="margin-left:auto;font-family:var(--fd);font-size:16px">✅</div>
+          </div>
+          <div class="task-row"><div class="task-check done">✓</div><div style="flex:1"><b style="font-size:13px">Выучить 1 страницу Корана</b><div style="font-size:11px;color:var(--muted)">📖 1 стр • выполнено</div></div></div>
+          <div class="task-row"><div class="task-check"></div><div style="flex:1"><b style="font-size:13px">Работа над проектом</b><div style="font-size:11px;color:var(--muted)"><span style="background:rgba(46,125,91,.12);color:var(--accent);padding:2px 7px;border-radius:999px;font-weight:700;font-size:10px">РАБОТА</span> до сегодня</div></div></div>
+          <div class="task-row"><div class="task-check"></div><div style="flex:1"><b style="font-size:13px">Садака 500 ₽</b><div style="font-size:11px;color:var(--muted)"><span style="background:rgba(232,162,59,.14);color:#C97F12;padding:2px 7px;border-radius:999px;font-weight:700;font-size:10px">ФИНАНСЫ</span> закят</div></div></div>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center"><div style="font-size:12px;color:var(--muted);font-weight:700">⏱ Фокус</div><b style="font-family:var(--fd)">25:00</b></div>
+            <div style="flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center"><div style="font-size:12px;color:var(--muted);font-weight:700">📜 Аят дня</div><b style="font-size:11px">Аль-Бакара 286</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-card float-a"><div class="float-icon" style="background:rgba(46,125,91,.12)">🕌</div><div><b>Кибла 124°</b><div style="font-size:11px;color:var(--muted)">компас внутри</div></div></div>
+    <div class="float-card float-b"><div class="float-icon" style="background:rgba(232,162,59,.14)">📖</div><div><b>Аят дня</b><div style="font-size:11px;color:var(--muted)">обновляется ежедневно</div></div></div>
+  </div>
+</header>
+
+<section class="section" id="download">
+  <div class="section-head reveal">
+    <div class="kicker">Скачай за 10 секунд</div>
+    <h2>Два пути — один Баракат</h2>
+    <p>Android — скачиваешь APK по QR. iPhone — устанавливаешь как приложение через «Поделиться» без App Store. Оба варианта работают оффлайн.</p>
+  </div>
+
+  <div class="download-grid">
+    <article class="dl-card featured reveal">
+      <div class="dl-top">
+        <div class="dl-icon android">🤖</div>
+        <div><h3>Android — APK</h3><p>Сканируй QR • прямая ссылка</p></div>
+        <span style="margin-left:auto;background:var(--accent);color:#fff;font:800 11px var(--fd);padding:6px 10px;border-radius:999px">РЕКОМЕНДУЕМ</span>
+      </div>
+      <div class="qr-wrap">
+        <div class="qr-frame">
+          <div id="qrcode"></div>
+        </div>
+        <div class="qr-caption">Наведи камеру → скачается <b>Barakat-App-release.apk</b></div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+          <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">Android 8+</span>
+          <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">3.9 МБ</span>
+          <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">без Google Play</span>
+        </div>
+      </div>
+      <div class="dl-actions">
+        <a class="btn-primary" href="./Barakat-App-release.apk" download style="width:100%">⬇ Скачать APK</a>
+        <button class="btn-ghost" style="width:100%;justify-content:center" onclick="copyApkLink()">🔗 Копировать ссылку</button>
+        <div class="meta">Ссылка: <a href="./Barakat-App-release.apk" id="apkLink">Barakat-App-release.apk</a> • <span id="copyHint"></span></div>
+      </div>
+    </article>
+
+    <article class="dl-card reveal" style="border-color:color-mix(in srgb,#0E1410 10%,var(--line))">
+      <div class="dl-top">
+        <div class="dl-icon apple"></div>
+        <div><h3>iPhone — PWA</h3><p>Без App Store • за 3 шага</p></div>
+        <span style="margin-left:auto;background:#0E1410;color:#fff;font:700 11px var(--fb);padding:6px 10px;border-radius:999px">iOS 14+</span>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted);font-weight:500;margin-bottom:4px">Открой сайт приложения в Safari и добавь на главный экран. Будет как родное приложение — с иконкой и оффлайном.</p>
+      <ol class="steps">
+        <li class="step"><n>1</n><p>Открой в Safari <a href="https://superpirov.github.io/barakat-tracker/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:800;text-decoration:underline">superpirov.github.io/barakat-tracker</a> <span>обязательно именно Safari, не Chrome</span></p></li>
+        <li class="step"><n>2</n><div style="display:flex;gap:8px;align-items:center"><span class="step-icon">⎙</span><p>Нажми <b>Поделиться</b> <span style="display:inline-flex;align-items:center;gap:4px">иконка <span style="width:22px;height:22px;border-radius:6px;background:#0E1410;color:#fff;display:grid;place-items:center;font-size:12px">↑</span> внизу экрана</span></p></div></li>
+        <li class="step"><n>3</n><p>Выбери <b>«На экран “Домой”»</b> → <b>Добавить</b><span>иконка Бараката появится рядом с приложениями</span></p></li>
+      </ol>
+      <div class="dl-actions">
+        <a class="btn-primary" style="background:#0E1410;width:100%" href="https://superpirov.github.io/barakat-tracker/" target="_blank" rel="noopener">→ Открыть Barakat в Safari</a>
+        <div class="meta">PWA • работает без интернета после первого открытия • данные у тебя на устройстве</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="features" style="padding-top:10px">
+  <div class="section-head reveal">
+    <div class="kicker">Внутри приложения</div>
+    <h2>Всё, что нужно мусульманину на день</h2>
+    <p>Минимализм — но не пустота. Каждый блок продуман, чтобы добавить баракат в рутину.</p>
+  </div>
+  <div class="ornament"><i></i><span>✦  ث  ✦</span><i></i></div>
+  <div class="features-grid">
+    <div class="feat reveal" style="--c:#2E7D5B"><div class="feat-icon">📋</div><h3>Задачи и категории</h3><p>Свои категории с цветом и эмодзи, приоритеты, сроки, поиск и фильтры «Активные / Выполненные».</p><ul><li>drag & drop</li><li>дедлайны</li><li>прогресс-кольцо</li></ul></div>
+    <div class="feat reveal" style="--c:#1E6F52"><div class="feat-icon">🕌</div><h3>Намаз и Кибла</h3><p>Точное время намаза по геолокации, метод Umm al-Qura, обратный отсчёт и компас Киблы 124° с калибровкой.</p><ul><li>авто-город</li><li>компас</li><li>таймер до намаза</li></ul></div>
+    <div class="feat reveal" style="--c:#E8A23B"><div class="feat-icon">📖</div><h3>Чтение Корана</h3><p>Счётчик страниц в день, общий прогресс, недельный график и серия дней чтения.</p><ul><li>серия</li><li>неделя</li><li>аят дня</li></ul></div>
+    <div class="feat reveal" style="--c:#C97F12"><div class="feat-icon">⏱</div><h3>Фокус-таймер</h3><p>Помодоро 25/5, пауза, сброс, статистика сессий и фокус-минут за сегодня с прогресс-баром.</p><ul><li>25 мин</li><li>статистика</li><li>звук</li></ul></div>
+    <div class="feat reveal" style="--c:#8B5E00"><div class="feat-icon">🤲</div><h3>Благодарность</h3><p>Дневник «За что я благодарен сегодня?» — сохраняй и перечитывай, укрепляя сердце.</p><ul><li>ежедневно</li><li>история</li><li>локально</li></ul></div>
+    <div class="feat reveal" style="--c:#2E7D5B"><div class="feat-icon">💰</div><h3>Закят и расходы</h3><p>Калькулятор закята (нисаб, хаул), выбор валюты и учёт расходов по категориям за месяц.</p><ul><li>нисаб</li><li>валюты</li><li>категории</li></ul></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:10px">
+  <div class="ayah reveal" id="ayahBox">
+    <div class="ayah-ar">وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا</div>
+    <div class="ayah-tr">«А тому, кто боится Аллаха, Он создаёт выход из положения и наделяет его уделом оттуда, откуда он даже не предполагает».</div>
+    <div class="ayah-ref">Коран 65:2–3 • Ат-Талак</div>
+    <div style="margin-top:16px"><a href="https://superpirov.github.io/barakat-tracker/" target="_blank" rel="noopener" class="btn-ghost" style="border-color:var(--accent);color:var(--accent)">📜 Открыть аят дня в приложении</a></div>
+  </div>
+</section>
+
+<section class="section" id="install" style="padding-top:10px">
+  <div class="section-head reveal">
+    <div class="kicker">Помощь</div>
+    <h2>Установка — это просто</h2>
+  </div>
+  <div class="help-grid">
+    <div class="help-card reveal">
+      <h3>🤖 Android: если не устанавливается</h3>
+      <ol>
+        <li>Скачай APK по QR или кнопке выше.</li>
+        <li>Открой файл из шторки загрузок.</li>
+        <li>Если система спросит — разреши <b>«Установка из неизвестных источников»</b> для браузера/файлов.</li>
+        <li>Нажми <b>Установить</b> → открой Баракат. Готово.</li>
+      </ol>
+      <p style="margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px">Файл подписан и весит всего 3.9 МБ. Никаких разрешений кроме необходимых — твои данные не уходят в интернет.</p>
+    </div>
+    <div class="help-card reveal">
+      <h3> iPhone: частые вопросы</h3>
+      <ol>
+        <li><b>Это безопасно?</b> Да, это PWA — сайт, сохранённый как приложение. Apple официально поддерживает.</li>
+        <li><b>Нужен App Store?</b> Нет, установка только через Safari → Поделиться.</li>
+        <li><b>Будет работать без интернета?</b> Да, после первого открытия.</li>
+        <li><b>Где данные?</b> Только в твоём браузере (localStorage), как и в APK.</li>
+      </ol>
+      <p style="margin-top:12px">Не видишь пункт «На экран Домой»? Прокрути меню «Поделиться» вниз или обнови iOS.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo-mark" style="width:34px;height:34px;font-size:15px">✦</div>
+      <div><b style="font-family:var(--fd);font-size:13px">Баракат</b><div class="copy">Пусть каждый день будет благословенным</div></div>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/superpirov/barakat-tracker" target="_blank" rel="noopener">Исходный код приложения</a>
+      <a href="https://github.com/superpirov/barakat-app-site" target="_blank" rel="noopener">Сайт на GitHub</a>
+      <a href="./Barakat-App-release.apk" download>Скачать APK</a>
+      <a href="https://superpirov.github.io/barakat-tracker/" target="_blank" rel="noopener">Открыть приложение</a>
+    </div>
+    <div class="copy">© 2026 Barakat App • Сделано с дуа • Данные хранятся локально</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+const APK_URL = 'https://superpirov.github.io/barakat-app-site/Barakat-App-release.apk';
+// relative fallback for local copy hint
+const APK_REL = './Barakat-App-release.apk';
+
+function copyApkLink(){
+  const url = APK_URL;
+  navigator.clipboard.writeText(url).then(()=>{
+    const h = document.getElementById('copyHint');
+    h.textContent = 'скопировано ✓';
+    h.style.color = 'var(--accent)';
+    setTimeout(()=>h.textContent='', 2000);
+  }).catch(()=>{
+    prompt('Скопируй ссылку:', url);
+  });
+}
+
+// QR generation
+(function(){
+  const el = document.getElementById('qrcode');
+  if(!el) return;
+  try{
+    new QRCode(el, {
+      text: APK_URL,
+      width: 168,
+      height: 168,
+      colorDark: "#1B211D",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }catch(e){
+    // fallback to external image
+    el.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=168x168&data='+encodeURIComponent(APK_URL)+'" width="168" height="168" alt="QR для APK" style="display:block;border-radius:8px">'
+  }
+  // also add small fallback note if QRCode lib fails to render quickly
+  setTimeout(()=>{
+    if(!el.querySelector('canvas') && !el.querySelector('img')){
+      el.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=168x168&data='+encodeURIComponent(APK_URL)+'" width="168" height="168" alt="QR">'
+    }
+  }, 800);
+})();
+
+// reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in') })
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// burger simple toggle: scroll to download on mobile
+document.getElementById('burger')?.addEventListener('click', ()=>{
+  document.getElementById('download')?.scrollIntoView({behavior:'smooth'});
+});
+
+// set apkLink href to absolute for clarity but keep download working relative
+document.getElementById('apkLink')?.setAttribute('href', APK_REL);
+</script>
+</body>
+</html>
