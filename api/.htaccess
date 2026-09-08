@@ -1,0 +1,4 @@
+# Запретить прямой доступ к файлу с хешем пароля
+<Files ".passwd">
+  Require all denied
+</Files>

@@ -345,12 +345,12 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
       </div>
       <p style="font-size:13.5px;color:var(--muted);font-weight:500;margin-bottom:4px">Открой сайт приложения в Safari и добавь на главный экран. Будет как родное приложение — с иконкой и оффлайном.</p>
       <ol class="steps">
-        <li class="step"><n>1</n><p>Открой в Safari <a href="https://mybarakat.ru/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:800;text-decoration:underline">mybarakat.ru</a> <span>обязательно именно Safari, не Chrome</span></p></li>
+        <li class="step"><n>1</n><p>Открой в Safari <a href="https://app.mybarakat.ru/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:800;text-decoration:underline">app.mybarakat.ru</a> <span>обязательно именно Safari, не Chrome</span></p></li>
         <li class="step"><n>2</n><div style="display:flex;gap:8px;align-items:center"><span class="step-icon">⎙</span><p>Нажми <b>Поделиться</b> <span style="display:inline-flex;align-items:center;gap:4px">иконка <span style="width:22px;height:22px;border-radius:6px;background:#0E1410;color:#fff;display:grid;place-items:center;font-size:12px">↑</span> внизу экрана</span></p></div></li>
         <li class="step"><n>3</n><p>Выбери <b>«На экран “Домой”»</b> → <b>Добавить</b><span>иконка Бараката появится рядом с приложениями</span></p></li>
       </ol>
       <div class="dl-actions">
-        <a class="btn-primary" style="background:#0E1410;width:100%" href="https://mybarakat.ru/" target="_blank" rel="noopener">→ Открыть Barakat в Safari</a>
+        <a class="btn-primary" style="background:#0E1410;width:100%" href="https://app.mybarakat.ru/" target="_blank" rel="noopener">→ Открыть Barakat в Safari</a>
         <div class="meta">PWA • работает без интернета после первого открытия • данные у тебя на устройстве</div>
       </div>
     </article>
@@ -396,17 +396,20 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
         <p class="admin-p">Введи пароль администратора. При первом входе придумай его — он сохранится в этом браузере.</p>
         <div class="admin-row"><input type="password" id="adminPass" placeholder="Пароль" autocomplete="current-password"><button class="btn-primary" id="adminLogin">Войти</button></div>
         <div class="admin-err" id="adminErr"></div>
-        <p class="admin-p">Забыл пароль? Очисти данные сайта в настройках браузера — пароль сбросится.</p>
+        <p class="admin-p" id="passHint">Забыл пароль? Очисти данные сайта в настройках браузера — пароль сбросится.</p>
       </div>
       <div id="adminPanel" style="display:none">
         <div class="admin-row"><input type="date" id="newsDate"><input type="text" id="newsText" placeholder="Текст новости…" style="flex:2"><button class="btn-primary" id="newsAdd">＋ Добавить</button></div>
         <div class="admin-list" id="adminList"></div>
-        <div class="admin-row" style="margin-top:12px">
-          <button class="btn-ghost" id="newsDownload">⬇ Скачать news.json</button>
-          <button class="btn-ghost" id="newsCopy">🔗 Скопировать JSON</button>
-          <button class="btn-ghost" id="newsResetDraft">↺ Сбросить черновик</button>
+        <div id="staticTools">
+          <div class="admin-row" style="margin-top:12px">
+            <button class="btn-ghost" id="newsDownload">⬇ Скачать news.json</button>
+            <button class="btn-ghost" id="newsCopy">🔗 Скопировать JSON</button>
+            <button class="btn-ghost" id="newsResetDraft">↺ Сбросить черновик</button>
+          </div>
+          <p class="admin-p" style="margin-top:10px">Нет связи с сервером (предпросмотр): чтобы новость увидели <b>все</b>, скачай <b>news.json</b> и загрузи его в корень сайта. Всё, что ты добавляешь здесь, пока видно как черновик только в этом браузере.</p>
         </div>
-        <p class="admin-p" style="margin-top:10px">Сайт статический: чтобы новость увидели <b>все</b>, скачай <b>news.json</b> и загрузи его в корень репозитория <b>barakat-app-site</b> (рядом с index.html). Всё, что ты добавляешь здесь, сразу видно как черновик только в этом браузере.</p>
+        <p class="admin-p" id="serverNote" style="display:none;margin-top:10px">Сервер подключён: новости публикуются <b>сразу для всех</b> ✓</p>
         <div class="admin-row"><span class="admin-p" id="adminMsg"></span></div>
       </div>
     </div>
@@ -418,7 +421,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
     <div class="ayah-ar">وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا</div>
     <div class="ayah-tr">«А тому, кто боится Аллаха, Он создаёт выход из положения и наделяет его уделом оттуда, откуда он даже не предполагает».</div>
     <div class="ayah-ref">Коран 65:2–3 • Ат-Талак</div>
-    <div style="margin-top:16px"><a href="https://mybarakat.ru/" target="_blank" rel="noopener" class="btn-ghost" style="border-color:var(--accent);color:var(--accent)">📜 Открыть аят дня в приложении</a></div>
+    <div style="margin-top:16px"><a href="https://app.mybarakat.ru/" target="_blank" rel="noopener" class="btn-ghost" style="border-color:var(--accent);color:var(--accent)">📜 Открыть аят дня в приложении</a></div>
   </div>
 </section>
 
@@ -459,8 +462,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
     </div>
     <div class="footer-links">
       <a href="./Баракат-1.7.apk" download>Скачать APK</a>
-      <a href="https://mybarakat.ru/" target="_blank" rel="noopener">Открыть приложение</a>
-      <a href="https://mybarakat.ru/" target="_blank" rel="noopener">сайт</a>
+      <a href="https://app.mybarakat.ru/" target="_blank" rel="noopener">Открыть приложение</a>
     </div>
     <div class="copy">© 2026 Barakat App • Сделано с дуа • Данные хранятся локально</div>
   </div>
@@ -469,8 +471,9 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
 const APK_FILE = 'Баракат-1.7.apk';
-const APK_URL = 'https://superpirov.github.io/barakat-app-site/' + APK_FILE;
+const APK_URL = 'https://mybarakat.ru/' + encodeURIComponent(APK_FILE);
 const APK_REL = './' + APK_FILE;
+const APP_URL = 'https://app.mybarakat.ru/';
 
 function copyApkLink(){
   const url = APK_URL;
@@ -517,7 +520,19 @@ const NEWS_DEFAULT = [
 const DRAFT_KEY = 'barakat.news.draft';
 const PASS_KEY = 'barakat.news.pass';
 const AUTH_KEY = 'barakat.news.auth';
+const PASS_SES = 'barakat.news.pass';
+const API_URL = 'api/news.php';
+let serverMode = false;
+let serverNeedInit = false;
 let newsData = NEWS_DEFAULT.map(n=>({...n}));
+
+async function apiPost(body){
+  const r = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  let j = null; try{ j = await r.json() }catch(e){}
+  return {status:r.ok, data:j};
+}
+function getSesPass(){ try{ return sessionStorage.getItem(PASS_SES)||'' }catch(e){ return '' } }
+function setSesPass(v){ try{ v ? sessionStorage.setItem(PASS_SES,v) : sessionStorage.removeItem(PASS_SES) }catch(e){} }
 
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
 function fmtDate(d){
@@ -538,6 +553,17 @@ function draftOn(){
 }
 async function loadNews(){
   try{
+    const r = await fetch(API_URL+'?v='+Date.now(), {cache:'no-store'});
+    const j = await r.json();
+    if(r.ok && j && j.ok && Array.isArray(j.news)){
+      serverMode = true;
+      serverNeedInit = !!j.init;
+      if(j.news.length) newsData = j.news;
+      renderNews();
+      return;
+    }
+  }catch(e){/* нет PHP — статический режим */}
+  try{
     const r = await fetch('news.json?v='+Date.now(), {cache:'no-store'});
     if(r.ok){ const j = await r.json(); if(Array.isArray(j) && j.length) newsData = j }
   }catch(e){/* file:// или оффлайн — остаются значения по умолчанию */}
@@ -551,13 +577,25 @@ function persistDraft(){ try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(new
 function adminMsg(t){ const m = document.getElementById('adminMsg'); if(m){ m.textContent = t; setTimeout(()=>{ if(m.textContent===t) m.textContent='' }, 3000) } }
 
 // ── Админка новостей ──
-function isAuthed(){ try{ return sessionStorage.getItem(AUTH_KEY)==='1' }catch(e){ return false } }
+function isAuthed(){
+  if(serverMode) return !!getSesPass();
+  try{ return sessionStorage.getItem(AUTH_KEY)==='1' }catch(e){ return false }
+}
 function refreshAdmin(){
   const authed = isAuthed();
   document.getElementById('adminAuth').style.display = authed ? 'none' : 'block';
   document.getElementById('adminPanel').style.display = authed ? 'block' : 'none';
-  document.getElementById('adminLogin').textContent = localStorage.getItem(PASS_KEY) ? 'Войти' : 'Создать пароль';
+  const needInit = serverMode ? serverNeedInit : !localStorage.getItem(PASS_KEY);
+  document.getElementById('adminLogin').textContent = needInit ? 'Создать пароль' : 'Войти';
   document.getElementById('adminErr').textContent = '';
+  const st = document.getElementById('staticTools');
+  if(st) st.style.display = serverMode ? 'none' : 'block';
+  const sn = document.getElementById('serverNote');
+  if(sn) sn.style.display = serverMode ? 'block' : 'none';
+  const ph = document.getElementById('passHint');
+  if(ph) ph.textContent = serverMode
+    ? 'Пароль хранится на сервере. Забыл — удали файл api/.passwd через файловый менеджер и создай заново.'
+    : 'Забыл пароль? Очисти данные сайта в настройках браузера — пароль сбросится.';
   if(authed){
     const nd = document.getElementById('newsDate');
     if(nd && !nd.value) nd.value = new Date().toISOString().slice(0,10);
@@ -570,8 +608,17 @@ function renderAdminList(){
     const i = newsData.indexOf(n);
     return '<div class="admin-item"><small>'+escapeHtml(fmtDate(n.date))+'</small><span>'+escapeHtml(n.text)+'</span><button class="admin-del" data-i="'+i+'" title="Удалить">🗑</button></div>'
   }).join('') || '<div class="news-empty">Нет новостей — добавь первую.</div>';
-  box.querySelectorAll('.admin-del').forEach(b=>b.addEventListener('click', ()=>{
-    newsData.splice(+b.dataset.i,1); persistDraft(); renderNews(); renderAdminList();
+  box.querySelectorAll('.admin-del').forEach(b=>b.addEventListener('click', async ()=>{
+    const i = +b.dataset.i;
+    if(serverMode){
+      try{
+        const res = await apiPost({action:'delete', password:getSesPass(), index:i});
+        if(res.status && res.data && res.data.ok){ newsData = res.data.news; renderNews(); renderAdminList(); adminMsg('Удалено ✓') }
+        else adminMsg(res.data && res.data.error ? res.data.error : 'Ошибка сервера.');
+      }catch(e){ adminMsg('Нет связи с сервером.') }
+      return;
+    }
+    newsData.splice(i,1); persistDraft(); renderNews(); renderAdminList();
   }));
 }
 document.getElementById('newsAdminBtn')?.addEventListener('click', ()=>{
@@ -581,10 +628,24 @@ document.getElementById('newsAdminBtn')?.addEventListener('click', ()=>{
 });
 document.getElementById('adminClose')?.addEventListener('click', ()=>document.getElementById('adminModal').classList.remove('open'));
 document.getElementById('adminModal')?.addEventListener('click', (e)=>{ if(e.target.id==='adminModal') e.target.classList.remove('open') });
-document.getElementById('adminLogin')?.addEventListener('click', ()=>{
+document.getElementById('adminLogin')?.addEventListener('click', async ()=>{
   const inp = document.getElementById('adminPass');
   const v = inp.value.trim();
   const err = document.getElementById('adminErr');
+  if(serverMode){
+    if(v.length<4){ err.textContent='Минимум 4 символа.'; return }
+    err.textContent='Проверяем…';
+    try{
+      const res = await apiPost({action: serverNeedInit ? 'init' : 'login', password: v});
+      if(res.status && res.data && res.data.ok){
+        setSesPass(v); serverNeedInit = false; inp.value='';
+        if(Array.isArray(res.data.news) && res.data.news.length) newsData = res.data.news;
+        renderNews(); refreshAdmin(); return;
+      }
+      err.textContent = (res.data && res.data.error) || 'Ошибка сервера.';
+    }catch(e){ err.textContent='Нет связи с сервером.' }
+    return;
+  }
   const saved = localStorage.getItem(PASS_KEY);
   if(!saved){
     if(v.length<4){ err.textContent='Придумай пароль минимум из 4 символов.'; return }
@@ -597,10 +658,23 @@ document.getElementById('adminLogin')?.addEventListener('click', ()=>{
   }
 });
 document.getElementById('adminPass')?.addEventListener('keydown', (e)=>{ if(e.key==='Enter') document.getElementById('adminLogin').click() });
-document.getElementById('newsAdd')?.addEventListener('click', ()=>{
+document.getElementById('newsAdd')?.addEventListener('click', async ()=>{
   const d = document.getElementById('newsDate').value || new Date().toISOString().slice(0,10);
   const t = document.getElementById('newsText').value.trim();
   if(!t){ adminMsg('Напиши текст новости.'); return }
+  if(serverMode){
+    adminMsg('Публикуем…');
+    try{
+      const res = await apiPost({action:'add', password:getSesPass(), date:d, text:t});
+      if(res.status && res.data && res.data.ok){
+        newsData = res.data.news;
+        document.getElementById('newsText').value='';
+        renderNews(); renderAdminList();
+        adminMsg('Опубликовано ✓ — видно всем сразу');
+      }else adminMsg(res.data && res.data.error ? res.data.error : 'Ошибка сервера.');
+    }catch(e){ adminMsg('Нет связи с сервером.') }
+    return;
+  }
   newsData.push({date:d, text:t});
   document.getElementById('newsText').value='';
   persistDraft(); renderNews(); renderAdminList();
