@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Баракат — трекер с баракатом в каждом дне</title>
-<meta name="description" content="Баракат — современный трекер задач, намазов, чтения Корана и фокуса. Скачайте APK для Android или установите PWA на iPhone за 10 секунд. Данные хранятся только у вас в устройстве.">
+<meta name="description" content="Баракат — современный трекер задач, намазов, чтения Корана и фокуса. Скачайте APK для Android, установите из RuStore или добавьте на iPhone за 10 секунд. Данные хранятся только у вас в устройстве.">
 <meta name="theme-color" content="#F2F4EF">
 <meta property="og:title" content="Баракат — трекер с баракатом">
 <meta property="og:description" content="Задачи, намазы, Кибла, Коран, фокус, благодарность и закят — всё в одном приложении.">
@@ -206,6 +206,21 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
 .reveal{opacity:0;transform:translateY(14px);transition:.6s cubic-bezier(.2,.7,.3,1)}
 .reveal.in{opacity:1;transform:none}
 
+/* Rustore band (после .reveal, чтобы hover-lift не перебивался) */
+.store-band{margin-top:18px;display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:24px;text-decoration:none;position:relative;overflow:hidden;
+  color:#EAF2EE;background:linear-gradient(115deg,#10161C,#1A2233 55%,#2A2350);border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 16px 40px rgba(16,22,28,.26);transition:transform .22s,box-shadow .22s}
+.store-band::before{content:'';position:absolute;right:-40px;top:-80px;width:240px;height:240px;border-radius:50%;background:linear-gradient(135deg,#2F6BFF,#8B3FE4);opacity:.4;filter:blur(4px)}
+.store-band:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(16,22,28,.34)}
+.store-logo{position:relative;flex:none;width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:26px;color:#fff;
+  background:linear-gradient(135deg,#2F6BFF,#8B3FE4);box-shadow:0 8px 20px rgba(47,107,255,.38)}
+.store-text{position:relative}
+.store-name{font-family:var(--fd);font-weight:800;font-size:17px;color:#fff;line-height:1.2}
+.store-desc{font-size:12.5px;font-weight:600;color:rgba(234,242,238,.72);margin-top:3px}
+.store-cta{position:relative;margin-left:auto;flex:none;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);color:#fff;
+  font:700 13px var(--fb);padding:11px 18px;border-radius:999px;transition:.2s;white-space:nowrap}
+.store-band:hover .store-cta{background:#fff;color:#10161C}
+
 /* responsive */
 @media(max-width:980px){
   .hero{grid-template-columns:1fr;gap:28px}
@@ -225,6 +240,8 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
   .hero{padding:22px 14px 18px}
   .section{padding:34px 14px}
   .features-grid{grid-template-columns:1fr}
+  .store-band{flex-wrap:wrap;gap:14px}
+  .store-cta{margin-left:0;width:100%;text-align:center}
   .hero-actions .btn-primary,.hero-actions .btn-ghost{flex:1}
   .phone{width:280px;height:540px}
   .ayah-ar{font-size:24px}
@@ -262,7 +279,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
     <div class="hero-stats">
       <div><b>8 в 1</b><span>приложений</span></div>
       <div><b>100%</b><span>оффлайн</span></div>
-      <div><b>v1.7</b><span>APK • 4.3 МБ</span></div>
+      <div><b>v2.6</b><span>APK • 4.7 МБ</span></div>
     </div>
     <div class="hero-trust">
       <span style="display:flex;align-items:center">
@@ -308,32 +325,32 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
 <section class="section" id="download">
   <div class="section-head reveal">
     <div class="kicker">Скачай за 10 секунд</div>
-    <h2>Два пути — один Баракат</h2>
-    <p>Android — скачиваешь APK по QR. iPhone — устанавливаешь как приложение через «Поделиться» без App Store. Оба варианта работают оффлайн.</p>
+    <h2>Три пути — один Баракат</h2>
+    <p>Android — качай APK по QR или ставь из RuStore в один тап. iPhone — добавляешь как приложение через «Поделиться», без App Store. Все варианты работают оффлайн.</p>
   </div>
 
   <div class="download-grid">
     <article class="dl-card featured reveal">
       <div class="dl-top">
         <div class="dl-icon android">🤖</div>
-        <div><h3>Android — APK v1.7</h3><p>Сканируй QR • прямая ссылка</p></div>
+        <div><h3>Android — APK v2.6</h3><p>Сканируй QR • прямая ссылка</p></div>
         <span style="margin-left:auto;background:var(--accent);color:#fff;font:800 11px var(--fd);padding:6px 10px;border-radius:999px">РЕКОМЕНДУЕМ</span>
       </div>
       <div class="qr-wrap">
         <div class="qr-frame">
           <div id="qrcode"></div>
         </div>
-        <div class="qr-caption">Наведи камеру → скачается <b>Баракат-1.7.apk</b></div>
+        <div class="qr-caption">Наведи камеру → скачается <b>Баракат-2.6.apk</b></div>
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
           <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">Android 8+</span>
-          <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">v1.7 • 4.3 МБ</span>
+          <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">v2.6 • 4.7 МБ</span>
           <span style="font-size:11px;background:var(--panel2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-weight:700">без Google Play</span>
         </div>
       </div>
       <div class="dl-actions">
-        <a class="btn-primary" href="./Баракат-1.7.apk" download="Баракат-1.7.apk" style="width:100%">⬇ Скачать APK v1.7</a>
+        <a class="btn-primary" href="./Баракат-2.6.apk" download="Баракат-2.6.apk" style="width:100%">⬇ Скачать APK v2.6</a>
         <button class="btn-ghost" style="width:100%;justify-content:center" onclick="copyApkLink()">🔗 Копировать ссылку</button>
-        <div class="meta">Ссылка: <a href="./Баракат-1.7.apk" id="apkLink">Баракат-1.7.apk</a> • <span id="copyHint"></span></div>
+        <div class="meta">Ссылка: <a href="./Баракат-2.6.apk" id="apkLink">Баракат-2.6.apk</a> • <span id="copyHint"></span></div>
       </div>
     </article>
 
@@ -355,6 +372,15 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
       </div>
     </article>
   </div>
+
+  <a class="store-band reveal" href="https://www.rustore.ru/catalog/app/com.superpirov.barakat" target="_blank" rel="noopener">
+    <div class="store-logo">R</div>
+    <div class="store-text">
+      <div class="store-name">Скачать в RuStore</div>
+      <div class="store-desc">Официальный магазин приложений • установка в один тап • автообновления</div>
+    </div>
+    <span class="store-cta">Открыть в RuStore →</span>
+  </a>
 </section>
 
 <section class="section" id="features" style="padding-top:10px">
@@ -439,7 +465,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
         <li>Если система спросит — разреши <b>«Установка из неизвестных источников»</b> для браузера/файлов.</li>
         <li>Нажми <b>Установить</b> → открой Баракат. Готово.</li>
       </ol>
-      <p style="margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px">Файл подписан (версия 1.7) и весит всего 4.3 МБ. Никаких разрешений кроме необходимых — твои данные не уходят в интернет.</p>
+      <p style="margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px">Файл подписан (версия 2.6) и весит всего 4.7 МБ. Никаких разрешений кроме необходимых — твои данные не уходят в интернет. Если не хочешь ставить APK вручную — Баракат есть в <a href="https://www.rustore.ru/catalog/app/com.superpirov.barakat" target="_blank" rel="noopener" style="color:var(--accent);font-weight:800">RuStore</a>.</p>
     </div>
     <div class="help-card reveal">
       <h3> iPhone: частые вопросы</h3>
@@ -461,7 +487,8 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
       <div><b style="font-family:var(--fd);font-size:13px">Баракат</b><div class="copy">Пусть каждый день будет благословенным</div></div>
     </div>
     <div class="footer-links">
-      <a href="./Баракат-1.7.apk" download>Скачать APK</a>
+      <a href="./Баракат-2.6.apk" download>Скачать APK</a>
+      <a href="https://www.rustore.ru/catalog/app/com.superpirov.barakat" target="_blank" rel="noopener">RuStore</a>
       <a href="https://app.mybarakat.ru/" target="_blank" rel="noopener">Открыть приложение</a>
     </div>
     <div class="copy">© 2026 Barakat App • Сделано с дуа • Данные хранятся локально</div>
@@ -470,7 +497,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);background:color-mix(in 
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script>
-const APK_FILE = 'Баракат-1.7.apk';
+const APK_FILE = 'Баракат-2.6.apk';
 const APK_URL = 'https://mybarakat.ru/' + encodeURIComponent(APK_FILE);
 const APK_REL = './' + APK_FILE;
 const APP_URL = 'https://app.mybarakat.ru/';
@@ -514,6 +541,7 @@ function copyApkLink(){
 
 // ── Новости ──
 const NEWS_DEFAULT = [
+  {date:'2026-10-17', text:'Баракат 2.6 вышел, и теперь приложение можно установить из RuStore — в один тап, с автообновлениями. Свежий APK тоже на главной.'},
   {date:'2026-09-08', text:'Вышел Баракат 1.7 — обновлённый APK уже на главной. Скачай заново и установи поверх прошлой версии.'},
   {date:'2026-09-01', text:'Запущен сайт: Android качай по QR, а на iPhone открывай app.mybarakat.ru в браузере и жми «Поделиться → На экран Домой».'}
 ];
